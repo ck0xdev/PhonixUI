@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Documentation | PhonixUI Framework V1.0</title>
+  <meta name="description" content="Complete basic-to-advanced documentation and component guide for PhonixUI V1.0.">
+  <link rel="icon" type="image/png" href="./Images/PhonixUI.png">
+  <link rel="stylesheet" href="./phonixUI.min.css">
+  <style>
+    /* ===== PREMIUM OVERRIDES (Synced with Index) ===== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --ph-cyan: #00b0ff;
+      --ph-cyan-hover: #0095ff;
+      --ph-bg-dark: #030712;
+      --ph-surface-dark: #0a0f1c;
+      --ph-surface-light: #111827;
+      --ph-border-dim: #1e293b;
+      --ph-border-glow: rgba(0, 176, 255, 0.3);
+      --ph-text-white: #f8fafc;
+      --ph-text-muted: #94a3b8;
+      --sidebar-width: 280px;
+    }
+
+    body {
+      background-color: var(--ph-bg-dark);
+      color: var(--ph-text-white);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    html { scroll-behavior: smooth; }
+
+    /* --- Navbar (100% Identical to index.html now) --- */
+    .navbar-pro {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 20px 0; background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent; z-index: 100; transition: all 0.3s ease;
+    }
+    .navbar-pro.scrolled {
+      padding: 16px 0; border-bottom: 1px solid var(--ph-border-dim);
+      background: rgba(3, 7, 18, 0.95);
+    }
+    .nav-btn-cyan { background-color: var(--ph-cyan); color: #fff; border-radius: 999px; padding: 8px 16px; font-size: 0.875rem; font-weight: 600; transition: all 0.2s; text-decoration: none; border: none; }
+    .nav-btn-cyan:hover { background-color: var(--ph-cyan-hover); transform: translateY(-1px); }
+    .nav-center-links { display: none; }
+    @media (min-width: 768px) { .nav-center-links { display: flex; align-items: center; gap: 32px; } }
+    .nav-link-item { font-size: 0.875rem; font-weight: 500; color: var(--ph-text-muted); text-decoration: none; transition: color 0.2s ease; }
+    .nav-link-item:hover { color: #ffffff; }
+    .nav-link-item.active { color: var(--ph-cyan); }
+    .pill-tag { display: inline-flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--ph-border-dim); color: var(--ph-text-muted); font-size: 0.75rem; font-weight: 500; padding: 6px 14px; border-radius: 999px; }
+
+    /* --- Layout --- */
+    .docs-layout { display: flex; min-height: 100vh; padding-top: 72px; }
+    .docs-sidebar { 
+      width: var(--sidebar-width); height: calc(100vh - 72px); 
+      position: fixed; left: 0; top: 72px; overflow-y: auto; 
+      border-right: 1px solid var(--ph-border-dim); 
+      background-color: #050811; padding: 32px 24px; z-index: 40; 
+    }
+    /* Custom Sidebar Scrollbar */
+    .docs-sidebar::-webkit-scrollbar { width: 6px; }
+    .docs-sidebar::-webkit-scrollbar-thumb { background: var(--ph-border-dim); border-radius: 4px; }
+    
+    .docs-content { flex: 1; margin-left: var(--sidebar-width); padding: 48px 64px; max-width: 1100px; }
+    
+    /* --- Sidebar Navigation --- */
+    .nav-group { margin-bottom: 32px; }
+    .nav-group-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; margin-bottom: 12px; padding-left: 12px; }
+    .nav-link { display: block; padding: 8px 12px; font-size: 0.875rem; color: var(--ph-text-muted); border-radius: 6px; transition: all 0.2s; border-left: 2px solid transparent; text-decoration: none; }
+    .nav-link:hover { color: #fff; background: var(--ph-surface-dark); }
+    .nav-link.active { color: var(--ph-cyan); font-weight: 600; background: rgba(0,176,255,0.1); border-left-color: var(--ph-cyan); }
+
+    /* --- Section Styling --- */
+    .docs-section { margin-bottom: 100px; scroll-margin-top: 100px; }
+    .section-title { font-size: 2.25rem; font-weight: 800; margin-bottom: 16px; color: #fff; letter-spacing: -0.02em; }
+    .section-desc { font-size: 1.125rem; color: var(--ph-text-muted); margin-bottom: 32px; line-height: 1.6; }
+    
+    /* --- Example & Code Boxes --- */
+    .example-container { 
+      background: var(--ph-bg-dark);
+      border: 1px solid var(--ph-border-dim); 
+      border-radius: 12px 12px 0 0; padding: 40px; 
+      display: flex; flex-wrap: wrap; gap: 16px; 
+      justify-content: center; align-items: center; 
+      position: relative; overflow: hidden;
+    }
+    .example-container::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(var(--ph-border-dim) 1px, transparent 1px);
+      background-size: 20px 20px; opacity: 0.5; z-index: 0;
+    }
+    .example-container > * { position: relative; z-index: 1; }
+    
+    .code-container { margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .code-header { background: #0d1117; border: 1px solid var(--ph-border-dim); border-bottom: none; border-radius: 12px 12px 0 0; padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
+    .mac-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f56; } .dot-y { background: #ffbd2e; } .dot-g { background: #27c93f; }
+    .code-lang { font-size: 0.75rem; color: #8b949e; margin-left: 8px; font-family: 'Inter', sans-serif; font-weight: 500; }
+    .code-container pre { border: 1px solid var(--ph-border-dim); border-radius: 0 0 12px 12px; background: #0a0c10; padding: 24px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; overflow-x: auto; line-height: 1.7; }
+    
+    /* Code Syntax Highlighting */
+    .sy-tag { color: #7ee787; } .sy-attr { color: #79c0ff; } .sy-val { color: #a5d6ff; } .sy-text { color: #c9d1d9; } .sy-cmt { color: #8b949e; font-style: italic; } .sy-class { color: #d2a8ff; }
+
+    /* --- Footer --- */
+    .footer-pro { 
+      background: #02040a; 
+      border-top: 1px solid var(--ph-border-dim); 
+      padding: 80px 0 40px; 
+      font-size: 0.875rem; 
+      margin-top: 80px;
+      margin-left: var(--sidebar-width); /* Fixes overlap with fixed sidebar */
+    }
+    .footer-grid { display: grid; grid-template-columns: 3fr 2fr 2fr 3fr; gap: 40px; margin-bottom: 60px; }
+    .f-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 700; font-size: 1.125rem; }
+    .f-desc { color: var(--ph-text-muted); line-height: 1.6; margin-bottom: 24px; max-width: 280px; }
+    .f-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--ph-border-dim); border-radius: 50%; color: var(--ph-text-muted); transition: all 0.2s; text-decoration: none; }
+    .f-icon-btn:hover { border-color: var(--ph-text-muted); color: #fff; }
+    .f-title { font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 24px; }
+    .f-links { list-style: none; padding: 0; margin: 0; }
+    .f-links li { margin-bottom: 16px; }
+    .f-links a { color: var(--ph-text-muted); text-decoration: none; transition: color 0.2s; }
+    .f-links a:hover { color: #fff; }
+    .f-install-box { background: #0d1117; border: 1px solid var(--ph-border-dim); border-radius: 8px; padding: 16px; }
+    .f-install-box code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #79c0ff; display: block; line-height: 1.5; }
+    .f-bottom { border-top: 1px solid var(--ph-border-dim); padding-top: 32px; display: flex; justify-content: space-between; color: var(--ph-text-muted); font-size: 0.75rem; }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) { 
+      .docs-sidebar { display: none; } 
+      .docs-content { margin-left: 0; padding: 32px 20px; } 
+      .footer-pro { margin-left: 0; } /* Resets margin when sidebar hides */
+    }
+    @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar-pro" id="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a href="index.html" class="d-flex align-items-center gap-8" style="color: #fff; text-decoration: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/></svg>
+        <span class="font-bold text-lg">Phonix<span style="color: var(--ph-cyan)">UI</span></span>
+        <span class="pill-tag" style="padding: 2px 8px; font-size: 0.65rem; border-color: rgba(0, 176, 255, 0.3); background: rgba(0, 176, 255, 0.1); color: var(--ph-cyan); margin-left: 4px;">v1.0</span>
+      </a>
+      
+      <div class="nav-center-links">
+        <a href="index.html" class="nav-link-item">Home</a>
+        <a href="docs.html" class="nav-link-item active">Documentation</a>
+        <a href="about.html" class="nav-link-item">About</a>
+      </div>
+
+      <div>
+        <a href="https://github.com/ck0xdev/PhonixUI" target="_blank" rel="noopener" class="nav-btn-cyan d-flex align-items-center gap-8" style="text-decoration: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48c-1.37-.38-2.84-.38-4.21 0C9.27.65 8.09 1 8.09 1A5.07 5.07 0 0 0 8 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 12 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="nav-group">
+        <p class="nav-group-title">Getting Started</p>
+        <a href="#introduction" class="nav-link active">Introduction</a>
+        <a href="#installation" class="nav-link">Installation</a>
+        <a href="#theming" class="nav-link">Theming (OKLCH)</a>
+      </div>
+
+      <div class="nav-group">
+        <p class="nav-group-title">Layout & Base</p>
+        <a href="#grid" class="nav-link">Grid System</a>
+        <a href="#flex-spacing" class="nav-link">Flexbox & Spacing</a>
+      </div>
+
+      <div class="nav-group">
+        <p class="nav-group-title">Components</p>
+        <a href="#buttons" class="nav-link">Buttons</a>
+        <a href="#cards" class="nav-link">Cards</a>
+        <a href="#forms" class="nav-link">Forms & Inputs</a>
+        <a href="#alerts" class="nav-link">Alerts</a>
+        <a href="#badges-avatars" class="nav-link">Badges & Avatars</a>
+        <a href="#tables" class="nav-link">Tables</a>
+        <a href="#progress-tabs" class="nav-link">Progress & Tabs</a>
+      </div>
+
+      <div class="nav-group">
+        <p class="nav-group-title">Utilities & FX</p>
+        <a href="#glass-glow" class="nav-link">Glass & Glow FX</a>
+        <a href="#tooltips" class="nav-link">Tooltips</a>
+        <a href="#skeletons" class="nav-link">Skeleton Loaders</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      
+      <section id="introduction" class="docs-section">
+        <span class="pill-tag m-b-16">Overview</span>
+        <h1 class="section-title" style="font-size: 3rem;">Introduction</h1>
+        <p class="section-desc">PhonixUI is a high-fidelity, zero-dependency CSS framework designed for speed, professional aesthetics, and modern web standards. Built completely from scratch utilizing OKLCH color science.</p>
+        
+        <div class="alert alert-info border border-primary bg-surface p-24 rounded-lg d-flex gap-16 m-b-32">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2" class="flex-shrink-0 m-t-4"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <div>
+            <p class="font-bold text-white m-b-4 text-lg">Framework Version V1.0</p>
+            <p class="text-sm text-muted line-height-1\.6">This documentation reflects the official stable release of PhonixUI. It covers everything from basic layouts to advanced GPU-accelerated glow and glass effects.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="installation" class="docs-section">
+        <h2 class="section-title">Installation</h2>
+        <p class="section-desc">Get up and running in seconds. PhonixUI is a single CSS file with zero build tools required.</p>
+        
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- 1. Download phonixUI.min.css and place it in your project --&gt;</span>
+<span class="sy-cmt">&lt;!-- 2. Link it in the &lt;head&gt; of your document --&gt;</span>
+
+<span class="sy-tag">&lt;!DOCTYPE</span> <span class="sy-attr">html</span><span class="sy-tag">&gt;</span>
+<span class="sy-tag">&lt;html</span> <span class="sy-attr">lang</span>=<span class="sy-val">"en"</span><span class="sy-tag">&gt;</span>
+<span class="sy-tag">&lt;head&gt;</span>
+  <span class="sy-tag">&lt;meta</span> <span class="sy-attr">charset</span>=<span class="sy-val">"UTF-8"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-tag">&lt;title&gt;</span><span class="sy-text">My App</span><span class="sy-tag">&lt;/title&gt;</span>
+  <span class="sy-tag">&lt;link</span> <span class="sy-attr">rel</span>=<span class="sy-val">"stylesheet"</span> <span class="sy-attr">href</span>=<span class="sy-val">"phonixUI.min.css"</span><span class="sy-tag">&gt;</span>
+<span class="sy-tag">&lt;/head&gt;</span>
+<span class="sy-tag">&lt;body</span> <span class="sy-attr">class</span>=<span class="sy-val">"theme-blue"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-cmt">&lt;!-- Start building! --&gt;</span>
+<span class="sy-tag">&lt;/body&gt;</span>
+<span class="sy-tag">&lt;/html&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="theming" class="docs-section">
+        <h2 class="section-title">Theming (OKLCH Engine)</h2>
+        <p class="section-desc">PhonixUI uses the modern OKLCH color space. By changing a single CSS variable (<code>--ph-base-hue</code>), the entire framework palette (backgrounds, surfaces, borders, primary accents, and glows) recalculates automatically.</p>
+
+        <div class="example-container gap-24">
+          <span class="badge border bg-surface p-x-16 p-y-8" style="border-color: #4f8ef7; color: #4f8ef7;">theme-blue</span>
+          <span class="badge border bg-surface p-x-16 p-y-8" style="border-color: #22c55e; color: #22c55e;">theme-green</span>
+          <span class="badge border bg-surface p-x-16 p-y-8" style="border-color: #ef4444; color: #ef4444;">theme-red</span>
+          <span class="badge border bg-surface p-x-16 p-y-8" style="border-color: #a855f7; color: #a855f7;">theme-purple</span>
+          <span class="badge border bg-surface p-x-16 p-y-8" style="border-color: #f97316; color: #f97316;">theme-orange</span>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Apply a built-in theme class to the body --&gt;</span>
+<span class="sy-tag">&lt;body</span> <span class="sy-attr">class</span>=<span class="sy-val">"theme-purple"</span><span class="sy-tag">&gt;</span>
+
+<span class="sy-cmt">&lt;!-- OR use a completely custom hue (0-360) inline --&gt;</span>
+<span class="sy-tag">&lt;body</span> <span class="sy-attr">style</span>=<span class="sy-val">"--ph-base-hue: 300;"</span><span class="sy-tag">&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="grid" class="docs-section">
+        <h2 class="section-title">Grid System</h2>
+        <p class="section-desc">A mobile-first, 12-column CSS Grid. Classes mimic standard flex grids but use native CSS <code>display: grid</code> for absolute precision. Breakpoints: <code>sm</code> (640px), <code>md</code> (768px), <code>lg</code> (1024px), <code>xl</code> (1280px).</p>
+        
+        <div class="example-container" style="display: block;">
+          <div class="grid w-100 text-center gap-16">
+            <div class="col-span-12 p-16 border rounded-sm bg-surface text-muted text-sm">col-span-12</div>
+            
+            <div class="col-span-12 md-col-span-6 p-16 border rounded-sm bg-surface text-muted text-sm">md-col-span-6</div>
+            <div class="col-span-12 md-col-span-6 p-16 border rounded-sm bg-surface text-muted text-sm">md-col-span-6</div>
+
+            <div class="col-span-4 p-16 border border-primary rounded-sm bg-surface text-primary text-sm">col-span-4</div>
+            <div class="col-span-8 p-16 border rounded-sm bg-surface text-muted text-sm">col-span-8</div>
+          </div>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"grid"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-cmt">&lt;!-- Full width on mobile, half width on medium screens --&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-12 md-col-span-6"</span><span class="sy-tag">&gt;</span><span class="sy-text">Left Column</span><span class="sy-tag">&lt;/div&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-12 md-col-span-6"</span><span class="sy-tag">&gt;</span><span class="sy-text">Right Column</span><span class="sy-tag">&lt;/div&gt;</span>
+
+  <span class="sy-cmt">&lt;!-- 1/3 and 2/3 split on all screens --&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-4"</span><span class="sy-tag">&gt;</span><span class="sy-text">Sidebar</span><span class="sy-tag">&lt;/div&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-8"</span><span class="sy-tag">&gt;</span><span class="sy-text">Main Content</span><span class="sy-tag">&lt;/div&gt;</span>
+<span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="flex-spacing" class="docs-section">
+        <h2 class="section-title">Flexbox & Spacing</h2>
+        <p class="section-desc">PhonixUI includes a robust utility engine for alignment, layout, and spacing without writing custom CSS.</p>
+
+        <h3 class="text-xl font-bold text-white m-b-16">Flex Utilities</h3>
+        <p class="text-muted m-b-24 text-sm"><code>.d-flex</code>, <code>.flex-column</code>, <code>.justify-content-[start|center|between|end]</code>, <code>.align-items-[start|center|end]</code>.</p>
+        
+        <h3 class="text-xl font-bold text-white m-b-16">Spacing Scale</h3>
+        <p class="text-muted m-b-24 text-sm">Format: <code>{property}-{direction}-{size}</code>.<br>
+        Properties: <code>m</code> (margin), <code>p</code> (padding).<br>
+        Directions: <code>t</code> (top), <code>b</code> (bottom), <code>l</code> (left), <code>r</code> (right), <code>x</code> (horizontal), <code>y</code> (vertical).<br>
+        Sizes (px): <code>0, 2, 4, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 100, 120</code>.</p>
+
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Flex container, centered vertically, space between horizontally, gap 16px --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"d-flex align-items-center justify-content-between gap-16"</span><span class="sy-tag">&gt;</span>
+  
+  <span class="sy-cmt">&lt;!-- Margin-bottom 24px, Padding-horizontal 32px --&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"m-b-24 p-x-32"</span><span class="sy-tag">&gt;</span><span class="sy-text">Item</span><span class="sy-tag">&lt;/div&gt;</span>
+
+<span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="buttons" class="docs-section">
+        <h2 class="section-title">Buttons</h2>
+        <p class="section-desc">Highly polished interactive elements. Buttons include transition states, focus-visible rings for accessibility, and active press states.</p>
+        
+        <div class="example-container">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-primary ph-btn-glow">Glow Active ✦</button>
+          <button class="btn btn-ghost border">Ghost</button>
+          <button class="btn btn-glass">Glass</button>
+          <button class="btn btn-success">Success</button>
+          <button class="btn btn-danger">Danger</button>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Standard Primary --&gt;</span>
+<span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"btn btn-primary"</span><span class="sy-tag">&gt;</span><span class="sy-text">Primary</span><span class="sy-tag">&lt;/button&gt;</span>
+
+<span class="sy-cmt">&lt;!-- Primary with GPU Glow Effect --&gt;</span>
+<span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"btn btn-primary ph-btn-glow"</span><span class="sy-tag">&gt;</span><span class="sy-text">Glow Active</span><span class="sy-tag">&lt;/button&gt;</span>
+
+<span class="sy-cmt">&lt;!-- Glassmorphic Button --&gt;</span>
+<span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"btn btn-glass"</span><span class="sy-tag">&gt;</span><span class="sy-text">Glass</span><span class="sy-tag">&lt;/button&gt;</span>
+
+<span class="sy-cmt">&lt;!-- Sizes --&gt;</span>
+<span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"btn btn-primary btn-sm"</span><span class="sy-tag">&gt;</span><span class="sy-text">Small</span><span class="sy-tag">&lt;/button&gt;</span>
+<span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"btn btn-primary btn-lg"</span><span class="sy-tag">&gt;</span><span class="sy-text">Large</span><span class="sy-tag">&lt;/button&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="cards" class="docs-section">
+        <h2 class="section-title">Cards</h2>
+        <p class="section-desc">Base surface containers for grouping related content. Combine with interaction utilities for dynamic 3D lift effects.</p>
+        
+        <div class="example-container align-items-stretch">
+          <div class="card w-100 bg-surface border" style="max-width: 320px;">
+            <div class="card-header font-bold text-white text-lg">Standard Card</div>
+            <p class="text-muted text-sm line-height-1\.6">A solid surface container with predefined borders, radii, and structural padding (header, body, footer).</p>
+            <div class="card-footer">
+              <button class="btn btn-ghost btn-sm w-100 border">Cancel</button>
+            </div>
+          </div>
+
+          <div class="card bg-surface border ph-card-interactive w-100" style="max-width: 320px;">
+             <div class="d-flex align-items-center gap-12 m-b-16">
+               <div class="avatar avatar-sm bg-primary text-white">✨</div>
+               <div class="font-bold text-white">Interactive Card</div>
+             </div>
+             <p class="text-muted text-sm line-height-1\.6">Hover over this card. It utilizes <code>.ph-card-interactive</code> to trigger a 3D translateY lift and inject a primary-colored glow shadow.</p>
+          </div>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Interactive Card Structure --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"card ph-card-interactive"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"card-header font-bold"</span><span class="sy-tag">&gt;</span><span class="sy-text">Title</span><span class="sy-tag">&lt;/div&gt;</span>
+  
+  <span class="sy-tag">&lt;p</span> <span class="sy-attr">class</span>=<span class="sy-val">"text-muted text-sm"</span><span class="sy-tag">&gt;</span><span class="sy-text">Card body content goes here.</span><span class="sy-tag">&lt;/p&gt;</span>
+  
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"card-footer"</span><span class="sy-tag">&gt;</span>
+    <span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"btn btn-primary w-100"</span><span class="sy-tag">&gt;</span><span class="sy-text">Submit</span><span class="sy-tag">&lt;/button&gt;</span>
+  <span class="sy-tag">&lt;/div&gt;</span>
+<span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="forms" class="docs-section">
+        <h2 class="section-title">Forms & Inputs</h2>
+        <p class="section-desc">Fully styled, accessible form controls. Inputs seamlessly adapt to the OKLCH theme engine for focus rings.</p>
+        
+        <div class="example-container" style="flex-direction: column; align-items: stretch; max-width: 500px; margin: 0 auto 40px auto;">
+          <div class="form-group">
+            <label class="label">Email Address</label>
+            <input type="email" class="input bg-surface border" placeholder="user@domain.com">
+          </div>
+          
+          <div class="form-group">
+            <label class="label">Project Type</label>
+            <select class="select bg-surface border">
+              <option>Web Application</option>
+              <option>Mobile App</option>
+              <option>Design System</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="label">Message</label>
+            <textarea class="textarea bg-surface border" placeholder="How can we help?"></textarea>
+          </div>
+
+          <div class="form-group">
+             <label class="checkbox">
+               <input type="checkbox" checked> Subscribe to newsletter
+             </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label">Username (Error State)</label>
+            <input type="text" class="input bg-surface border" aria-invalid="true" value="admin">
+            <div class="form-error">Username is already taken.</div>
+          </div>
+        </div>
+
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Text Input --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"form-group"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-tag">&lt;label</span> <span class="sy-attr">class</span>=<span class="sy-val">"label"</span><span class="sy-tag">&gt;</span><span class="sy-text">Email Address</span><span class="sy-tag">&lt;/label&gt;</span>
+  <span class="sy-tag">&lt;input</span> <span class="sy-attr">type</span>=<span class="sy-val">"email"</span> <span class="sy-attr">class</span>=<span class="sy-val">"input"</span> <span class="sy-attr">placeholder</span>=<span class="sy-val">"user@domain.com"</span><span class="sy-tag">&gt;</span>
+<span class="sy-tag">&lt;/div&gt;</span>
+
+<span class="sy-cmt">&lt;!-- Select Dropdown --&gt;</span>
+<span class="sy-tag">&lt;select</span> <span class="sy-attr">class</span>=<span class="sy-val">"select"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-tag">&lt;option&gt;</span><span class="sy-text">Option 1</span><span class="sy-tag">&lt;/option&gt;</span>
+<span class="sy-tag">&lt;/select&gt;</span>
+
+<span class="sy-cmt">&lt;!-- Error State (triggered by aria-invalid) --&gt;</span>
+<span class="sy-tag">&lt;input</span> <span class="sy-attr">type</span>=<span class="sy-val">"text"</span> <span class="sy-attr">class</span>=<span class="sy-val">"input"</span> <span class="sy-attr">aria-invalid</span>=<span class="sy-val">"true"</span><span class="sy-tag">&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"form-error"</span><span class="sy-tag">&gt;</span><span class="sy-text">Error message.</span><span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="alerts" class="docs-section">
+        <h2 class="section-title">Alerts</h2>
+        <p class="section-desc">Semantic, full-width feedback components. The background and borders are automatically calculated based on the root status hues.</p>
+        
+        <div class="example-container" style="flex-direction: column; align-items: stretch; max-width: 600px; margin: 0 auto 40px auto;">
+          <div class="alert alert-info">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="alert-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span><strong>Update available:</strong> Version 1.2 is ready to download.</span>
+          </div>
+          <div class="alert alert-success">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="alert-icon"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Success!</strong> Your profile settings have been saved.</span>
+          </div>
+          <div class="alert alert-warning">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="alert-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span><strong>Warning:</strong> You are about to exceed your storage limit.</span>
+          </div>
+          <div class="alert alert-danger">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="alert-icon"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <span><strong>Error:</strong> Failed to connect to the database.</span>
+          </div>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"alert alert-success"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-cmt">&lt;!-- Icon goes here --&gt;</span>
+  <span class="sy-tag">&lt;span&gt;</span><span class="sy-text">Operation completed successfully.</span><span class="sy-tag">&lt;/span&gt;</span>
+<span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="badges-avatars" class="docs-section">
+        <h2 class="section-title">Badges & Avatars</h2>
+        <p class="section-desc">Status indicators and user profile placeholders.</p>
+        
+        <div class="example-container gap-32">
+          <div class="d-flex flex-column gap-16 align-items-center border-right p-r-32">
+            <div class="text-sm text-muted font-bold uppercase tracking-wider">Badges</div>
+            <div class="d-flex flex-wrap gap-8 justify-content-center">
+              <span class="badge badge-primary">Primary</span>
+              <span class="badge badge-success">Success</span>
+              <span class="badge badge-danger">Danger</span>
+              <span class="badge badge-warning">Warning</span>
+              <span class="badge badge-info">Info</span>
+            </div>
+          </div>
+          
+          <div class="d-flex flex-column gap-16 align-items-center">
+            <div class="text-sm text-muted font-bold uppercase tracking-wider">Avatars</div>
+            <div class="d-flex align-items-center gap-16">
+              <div class="avatar avatar-lg bg-surface border text-primary">LG</div>
+              <div class="avatar avatar-md bg-surface border text-primary">MD</div>
+              
+              <div class="avatar-group m-l-16">
+                <div class="avatar avatar-md bg-primary text-white">A</div>
+                <div class="avatar avatar-md text-white" style="background: #22c55e;">B</div>
+                <div class="avatar avatar-md text-white" style="background: #a855f7;">C</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Badge --&gt;</span>
+<span class="sy-tag">&lt;span</span> <span class="sy-attr">class</span>=<span class="sy-val">"badge badge-danger"</span><span class="sy-tag">&gt;</span><span class="sy-text">Error</span><span class="sy-tag">&lt;/span&gt;</span>
+
+<span class="sy-cmt">&lt;!-- Avatar Group (Overlaps automatically) --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"avatar-group"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"avatar avatar-md"</span><span class="sy-tag">&gt;</span><span class="sy-text">A</span><span class="sy-tag">&lt;/div&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"avatar avatar-md"</span><span class="sy-tag">&gt;</span><span class="sy-text">B</span><span class="sy-tag">&lt;/div&gt;</span>
+<span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="tables" class="docs-section">
+        <h2 class="section-title">Tables</h2>
+        <p class="section-desc">Responsive data visualization with subtle hover effects.</p>
+        
+        <div class="example-container" style="display: block; padding: 0;">
+          <div class="overflow-x-auto w-100">
+            <table class="table table-hover w-100" style="background: var(--ph-surface-dark); border-radius: 12px;">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Class Name</th>
+                  <th>Status</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-medium text-white">Button</td>
+                  <td><code>.btn</code></td>
+                  <td><span class="badge badge-success">Stable</span></td>
+                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white">Edit</a></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-white">Card Glass</td>
+                  <td><code>.ph-glass</code></td>
+                  <td><span class="badge badge-primary">New</span></td>
+                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white">Edit</a></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-white">Dropdown</td>
+                  <td><code>.ph-dropdown</code></td>
+                  <td><span class="badge badge-warning">Beta</span></td>
+                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white">Edit</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-tag">&lt;table</span> <span class="sy-attr">class</span>=<span class="sy-val">"table table-hover"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-tag">&lt;thead&gt;</span>
+    <span class="sy-tag">&lt;tr&gt;</span>
+      <span class="sy-tag">&lt;th&gt;</span><span class="sy-text">Header</span><span class="sy-tag">&lt;/th&gt;</span>
+    <span class="sy-tag">&lt;/tr&gt;</span>
+  <span class="sy-tag">&lt;/thead&gt;</span>
+  <span class="sy-tag">&lt;tbody&gt;</span>
+    <span class="sy-tag">&lt;tr&gt;</span>
+      <span class="sy-tag">&lt;td&gt;</span><span class="sy-text">Data row with hover effect</span><span class="sy-tag">&lt;/td&gt;</span>
+    <span class="sy-tag">&lt;/tr&gt;</span>
+  <span class="sy-tag">&lt;/tbody&gt;</span>
+<span class="sy-tag">&lt;/table&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="progress-tabs" class="docs-section">
+        <h2 class="section-title">Progress & Tabs</h2>
+        
+        <div class="grid gap-32">
+          <div class="col-span-12 md-col-span-6">
+            <h3 class="text-xl font-bold text-white m-b-16">Progress Bars</h3>
+            <div class="card bg-surface-dark border p-24">
+              <div class="m-b-8 d-flex justify-content-between text-xs font-bold text-muted uppercase">
+                <span>Upload Status</span><span>75%</span>
+              </div>
+              <div class="progress m-b-24">
+                <div class="progress-bar" style="width: 75%;"></div>
+              </div>
+
+              <div class="m-b-8 d-flex justify-content-between text-xs font-bold text-muted uppercase">
+                <span>Disk Space</span><span>90%</span>
+              </div>
+              <div class="progress progress-lg">
+                <div class="progress-bar progress-bar-danger" style="width: 90%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-span-12 md-col-span-6">
+            <h3 class="text-xl font-bold text-white m-b-16">CSS-Only Tabs</h3>
+            <div class="card bg-surface-dark border p-0 overflow-hidden">
+              <div class="tabs p-x-16 p-t-8" style="background: rgba(0,0,0,0.2);">
+                <button class="tab active" aria-selected="true">Account</button>
+                <button class="tab">Security</button>
+                <button class="tab">Billing</button>
+              </div>
+              <div class="p-24">
+                <p class="text-sm text-muted m-0">Tab content panels display here. Toggle the <code>.active</code> class and <code>aria-selected="true"</code> to control visibility via Javascript.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-container m-t-40">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Progress Bar --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"progress progress-lg"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"progress-bar progress-bar-danger"</span> <span class="sy-attr">style</span>=<span class="sy-val">"width: 90%;"</span><span class="sy-tag">&gt;</span><span class="sy-tag">&lt;/div&gt;</span>
+<span class="sy-tag">&lt;/div&gt;</span>
+
+<span class="sy-cmt">&lt;!-- Tabs --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"tabs"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"tab active"</span><span class="sy-tag">&gt;</span><span class="sy-text">Tab 1</span><span class="sy-tag">&lt;/button&gt;</span>
+  <span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"tab"</span><span class="sy-tag">&gt;</span><span class="sy-text">Tab 2</span><span class="sy-tag">&lt;/button&gt;</span>
+<span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="glass-glow" class="docs-section">
+        <h2 class="section-title">Glass & Glow FX</h2>
+        <p class="section-desc">PhonixUI's signature aesthetic relies on CSS variables combined with <code>backdrop-filter</code> and complex layered box-shadows. These are GPU-accelerated.</p>
+        
+        <div class="example-container relative" style="min-height: 300px; z-index: 1; border: none; background: transparent;">
+          <div class="ph-glow-primary absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.3; z-index: -1;"></div>
+          
+          <div class="ph-glass p-32 rounded-lg text-center border relative" style="width: 100%; max-width: 400px; z-index: 10;">
+            <h3 class="text-xl font-bold text-white m-b-8">Glass Component</h3>
+            <p class="text-sm text-muted m-b-24">Notice the blur effect over the ambient glow background.</p>
+            <button class="btn btn-primary ph-btn-glow w-100">Action with Glow</button>
+          </div>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Ambient Background Glow --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"ph-glow-primary absolute top-0 left-0"</span><span class="sy-tag">&gt;</span><span class="sy-tag">&lt;/div&gt;</span>
+
+<span class="sy-cmt">&lt;!-- Glass Surface --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"ph-glass p-32 rounded-md"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-text">Frosted content over background elements.</span>
+<span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="tooltips" class="docs-section">
+        <h2 class="section-title">Tooltips</h2>
+        <p class="section-desc">Pure CSS tooltips using the <code>data-tooltip</code> attribute. No Javascript initialization required.</p>
+        
+        <div class="example-container bg-surface-dark">
+          <button class="btn btn-ghost border" data-tooltip="This is a pure CSS tooltip!">Hover me</button>
+          <div class="avatar avatar-md bg-primary text-white cursor-pointer" data-tooltip="User Profile">U</div>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"btn"</span> <span class="sy-attr">data-tooltip</span>=<span class="sy-val">"Tooltip text here"</span><span class="sy-tag">&gt;</span><span class="sy-text">Hover me</span><span class="sy-tag">&lt;/button&gt;</span></code></pre>
+        </div>
+      </section>
+
+      <section id="skeletons" class="docs-section">
+        <h2 class="section-title">Skeleton Loaders</h2>
+        <p class="section-desc">Animated shimmer placeholders for asynchronous content loading states.</p>
+        
+        <div class="example-container align-items-start">
+          <div class="card bg-surface-dark border w-100" style="max-width: 320px;">
+            <div class="d-flex align-items-center gap-16 m-b-24">
+              <div class="skeleton rounded-full" style="width: 48px; height: 48px;"></div>
+              <div class="flex-1">
+                <div class="skeleton m-b-8" style="height: 16px; width: 70%;"></div>
+                <div class="skeleton" style="height: 12px; width: 40%;"></div>
+              </div>
+            </div>
+            <div class="skeleton m-b-12" style="height: 14px; width: 100%;"></div>
+            <div class="skeleton m-b-12" style="height: 14px; width: 100%;"></div>
+            <div class="skeleton" style="height: 14px; width: 80%;"></div>
+          </div>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="mac-dot dot-r"></div><div class="mac-dot dot-y"></div><div class="mac-dot dot-g"></div>
+            <span class="code-lang">HTML</span>
+          </div>
+          <pre><code><span class="sy-cmt">&lt;!-- Apply .skeleton to empty divs and set dimensions --&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"skeleton rounded-full"</span> <span class="sy-attr">style</span>=<span class="sy-val">"width: 48px; height: 48px;"</span><span class="sy-tag">&gt;</span><span class="sy-tag">&lt;/div&gt;</span>
+<span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"skeleton m-t-16"</span> <span class="sy-attr">style</span>=<span class="sy-val">"height: 16px; width: 100%;"</span><span class="sy-tag">&gt;</span><span class="sy-tag">&lt;/div&gt;</span></code></pre>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer-pro">
+    <div class="container" style="max-width: 100%;">
+      <div class="footer-grid">
+        <div>
+          <div class="f-logo-wrap text-white">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/></svg>
+            Phonix<span style="color: var(--ph-cyan)">UI</span>
+          </div>
+          <p class="f-desc">A modern CSS framework that prioritizes developer experience, performance, and design quality.</p>
+        </div>
+        <div>
+          <div class="f-title">Navigation</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docs.html">Documentation</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-title">Resources</div>
+          <ul class="f-links">
+            <li><a href="./phonixUI.min.css" download>Download CSS</a></li>
+            <li><a href="https://github.com/ck0xdev/PhonixUI" target="_blank" rel="noopener">GitHub Repository</a></li>
+            <li><a href="mit-license.html">MIT License</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-title">Quick Install</div>
+          <div class="f-install-box">
+            <code><span class="sy-tag">&lt;link</span> <span class="sy-attr">rel</span>=<span class="sy-val">"stylesheet"</span> <br><span class="sy-attr">href</span>=<span class="sy-val">"phonixUI.min.css"</span><span class="sy-tag">&gt;</span></code>
+          </div>
+        </div>
+      </div>
+      <div class="f-bottom">
+        <div>&copy; 2026 PhonixUI. MIT License. Built by <a href="https://github.com/ck0xdev" style="color:var(--ph-cyan); text-decoration:none;">ck0xdev</a>.</div>
+        <div style="display: flex; gap: 24px;">
+          <a href="privacy.html" style="color:var(--ph-text-muted); text-decoration:none;">Privacy</a>
+          <a href="terms.html" style="color:var(--ph-text-muted); text-decoration:none;">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling & active states
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({ top: targetElement.offsetTop - 100, behavior: 'smooth' });
+          document.querySelectorAll('.nav-link').forEach(nl => nl.classList.remove('active'));
+          this.classList.add('active');
+          history.pushState(null, null, targetId);
+        }
+      });
+    });
+
+    // Intersection Observer for scroll spy
+    const sections = document.querySelectorAll('.docs-section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Navbar scrolled state
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+  </script>
+</body>
+</html>

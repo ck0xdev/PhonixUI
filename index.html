@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>PhonixUI | Home</title>
+  <meta name="description" content="PhonixUI: A production-ready CSS framework with OKLCH color science, glassmorphic components, and zero JavaScript dependencies. Built for speed and developer experience.">
+  <meta name="keywords" content="CSS framework, PhonixUI, OKLCH, zero dependency, glassmorphism, design system">
+  <link rel="icon" type="image/png" href="./Images/PhonixUI.png">
+  <link rel="stylesheet" href="./phonixUI.min.css">
+  <style>
+    /* ===== PREMIUM OVERRIDES & CUSTOM STYLES ===== */
+    
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --ph-cyan: #00b0ff;
+      --ph-cyan-hover: #0095ff;
+      --ph-bg-dark: #030712;
+      --ph-surface-dark: #0a0f1c;
+      --ph-surface-light: #111827;
+      --ph-border-dim: #1e293b;
+      --ph-border-glow: rgba(0, 176, 255, 0.3);
+      --ph-text-white: #f8fafc;
+      --ph-text-muted: #94a3b8;
+    }
+
+    body {
+      background-color: var(--ph-bg-dark);
+      color: var(--ph-text-white);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* --- Navbar --- */
+    .navbar-pro {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 20px 0;
+      background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+    .navbar-pro.scrolled {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--ph-border-dim);
+      background: rgba(3, 7, 18, 0.95);
+    }
+    .nav-btn-cyan {
+      background-color: var(--ph-cyan);
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .nav-btn-cyan:hover { background-color: var(--ph-cyan-hover); transform: translateY(-1px); }
+    
+    /* Guaranteed Center Nav Links */
+    .nav-center-links {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .nav-center-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+    }
+    .nav-link-item {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ph-text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-link-item:hover { color: #ffffff; }
+    .nav-link-item.active { color: var(--ph-cyan); }
+
+    /* --- Hero Section --- */
+    .hero-section {
+      padding-top: 110px; /* Drastically reduced spacing */
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 10%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(0, 176, 255, 0.08) 0%, transparent 60%);
+      z-index: 0; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 10; }
+    
+    .pill-tag {
+      display: inline-flex; align-items: center;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--ph-border-dim);
+      color: var(--ph-text-muted);
+      font-size: 0.75rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 999px;
+    }
+    
+    .hero-title {
+      font-size: 4.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #8bb4ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--ph-text-muted);
+      max-width: 600px; margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .btn-pill-primary {
+      background: var(--ph-cyan); color: #fff;
+      border-radius: 999px; padding: 14px 28px;
+      font-weight: 600; font-size: 1rem;
+      display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(0, 176, 255, 0.3);
+      transition: all 0.2s;
+    }
+    .btn-pill-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0, 176, 255, 0.4); background: var(--ph-cyan-hover); }
+    
+    .btn-pill-secondary {
+      background: transparent; color: #fff;
+      border: 1px solid transparent;
+      border-radius: 999px; padding: 14px 28px;
+      font-weight: 500; font-size: 1rem;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-pill-secondary:hover { background: rgba(255,255,255,0.05); }
+
+    /* --- Code Window --- */
+    .hero-code-box {
+      background: #0d1117;
+      border: 1px solid var(--ph-border-dim);
+      border-radius: 16px;
+      max-width: 640px; margin: 40px auto 0; /* Tightened spacing */
+      overflow: hidden; text-align: left;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+    }
+    .code-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--ph-border-dim);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .mac-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f56; } .dot-y { background: #ffbd2e; } .dot-g { background: #27c93f; }
+    .code-title { margin-left: 12px; font-size: 0.75rem; color: #8b949e; font-family: 'Inter', sans-serif; }
+    .code-body { padding: 32px; margin: 0; background: transparent; border: none; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; line-height: 1.7; }
+    
+    /* Code Syntax Colors */
+    .sy-tag { color: #7ee787; }
+    .sy-attr { color: #79c0ff; }
+    .sy-val { color: #a5d6ff; }
+    .sy-text { color: #c9d1d9; }
+
+    /* --- Stats Section --- */
+    .stats-container {
+      border-top: 1px solid var(--ph-border-dim);
+      border-bottom: 1px solid var(--ph-border-dim);
+      display: flex; justify-content: space-between;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .stat-box {
+      flex: 1; text-align: center; padding: 48px 24px;
+      position: relative;
+    }
+    .stat-box:not(:last-child)::after {
+      content: ''; position: absolute; right: 0; top: 30%; bottom: 30%;
+      width: 1px; background: var(--ph-border-dim);
+    }
+    .stat-num { font-size: 3rem; font-weight: 800; color: var(--ph-cyan); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.875rem; color: var(--ph-text-muted); }
+
+    /* --- Features Section --- */
+    .section-pill { margin: 0 auto 24px; display: inline-flex; }
+    .section-heading { font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+    
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .feat-card {
+      background: var(--ph-surface-dark);
+      border: 1px solid var(--ph-border-dim);
+      border-radius: 16px; padding: 32px;
+      transition: all 0.3s ease;
+    }
+    .feat-card:hover { border-color: var(--ph-border-glow); transform: translateY(-4px); }
+    .feat-icon-box {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(0, 176, 255, 0.1); border: 1px solid rgba(0, 176, 255, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ph-cyan); margin-bottom: 24px;
+    }
+    .feat-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 12px; color: #fff; }
+    .feat-desc { font-size: 0.875rem; color: var(--ph-text-muted); line-height: 1.6; }
+
+    /* --- Components Showcase --- */
+    .comp-showcase-wrapper {
+      margin-top: 120px; text-align: center;
+    }
+    .showcase-btns { display: flex; justify-content: center; gap: 16px; margin: 40px 0; flex-wrap: wrap; }
+    .btn-show { 
+      padding: 10px 24px; border-radius: 999px; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer;
+    }
+    .btn-s-prim { background: var(--ph-cyan); color: #fff; }
+    .btn-s-sec { background: transparent; color: #fff; border: 1px solid var(--ph-border-dim); }
+    .btn-s-glass { background: rgba(255,255,255,0.05); color: #fff; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    .btn-s-succ { background: #22c55e; color: #fff; }
+    .btn-s-dang { background: #ef4444; color: #fff; }
+
+    .showcase-alerts { display: flex; justify-content: center; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+    .alert-box {
+      background: var(--ph-surface-dark); border: 1px solid var(--ph-border-dim);
+      border-radius: 8px; padding: 16px 20px; display: flex; align-items: center; gap: 12px; font-size: 0.875rem; color: var(--ph-text-muted);
+    }
+    .alert-box.info { border-color: rgba(0, 176, 255, 0.3); }
+    .alert-box.info svg { color: var(--ph-cyan); }
+    .alert-box.succ { border-color: rgba(34, 197, 94, 0.3); }
+    .alert-box.succ svg { color: #22c55e; }
+
+    .showcase-badges { display: flex; justify-content: center; gap: 12px; }
+    .bdg { padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; border: 1px solid transparent; }
+    .bdg-p { background: rgba(0, 176, 255, 0.15); border-color: rgba(0, 176, 255, 0.3); color: var(--ph-cyan); }
+    .bdg-s { background: rgba(34, 197, 94, 0.15); border-color: rgba(34, 197, 94, 0.3); color: #22c55e; }
+    .bdg-d { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.3); color: #ef4444; }
+    .bdg-w { background: rgba(234, 179, 8, 0.15); border-color: rgba(234, 179, 8, 0.3); color: #eab308; }
+    .bdg-i { background: rgba(0, 176, 255, 0.15); border-color: rgba(0, 176, 255, 0.3); color: var(--ph-cyan); }
+
+    /* --- CTA Box --- */
+    .cta-box {
+      background: linear-gradient(180deg, var(--ph-surface-dark) 0%, rgba(3, 7, 18, 0) 100%);
+      border: 1px solid var(--ph-border-dim);
+      border-radius: 32px; padding: 80px 40px;
+      text-align: center; max-width: 900px; margin: 120px auto;
+      position: relative;
+    }
+    
+    /* --- Footer --- */
+    .footer-pro {
+      background: #02040a;
+      border-top: 1px solid var(--ph-border-dim);
+      padding: 80px 0 40px;
+      font-size: 0.875rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 3fr 2fr 2fr 3fr; gap: 40px; margin-bottom: 60px; }
+    .f-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 700; font-size: 1.125rem; }
+    .f-logo-wrap img { border-radius: 6px; }
+    .f-desc { color: var(--ph-text-muted); line-height: 1.6; margin-bottom: 24px; max-width: 280px; }
+    .f-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--ph-border-dim); border-radius: 50%; color: var(--ph-text-muted); transition: all 0.2s; }
+    .f-icon-btn:hover { border-color: var(--ph-text-muted); color: #fff; }
+    
+    .f-title { font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 24px; }
+    .f-links { list-style: none; padding: 0; margin: 0; }
+    .f-links li { margin-bottom: 16px; }
+    .f-links a { color: var(--ph-text-muted); text-decoration: none; transition: color 0.2s; }
+    .f-links a:hover { color: #fff; }
+    
+    .f-install-box { background: #0d1117; border: 1px solid var(--ph-border-dim); border-radius: 8px; padding: 16px; }
+    .f-install-box code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #79c0ff; display: block; line-height: 1.5; }
+
+    .f-bottom {
+      border-top: 1px solid var(--ph-border-dim); padding-top: 32px;
+      display: flex; justify-content: space-between; color: var(--ph-text-muted); font-size: 0.75rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 3rem; }
+      .stats-container { flex-direction: column; border: none; }
+      .stat-box { border-bottom: 1px solid var(--ph-border-dim); }
+      .stat-box:not(:last-child)::after { display: none; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar-pro" id="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a href="index.html" class="d-flex align-items-center gap-8" style="color: #fff; text-decoration: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/></svg>
+        <span class="font-bold text-lg">Phonix<span style="color: var(--ph-cyan)">UI</span></span>
+        <span class="pill-tag" style="padding: 2px 8px; font-size: 0.65rem; border-color: rgba(0, 176, 255, 0.3); background: rgba(0, 176, 255, 0.1); color: var(--ph-cyan); margin-left: 4px;">v1.0</span>
+      </a>
+      
+      <div class="nav-center-links">
+        <a href="index.html" class="nav-link-item active">Home</a>
+        <a href="docs.html" class="nav-link-item">Documentation</a>
+        <a href="about.html" class="nav-link-item">About</a>
+      </div>
+
+      <div>
+        <a href="https://github.com/ck0xdev/PhonixUI" target="_blank" rel="noopener" class="nav-btn-cyan d-flex align-items-center gap-8" style="text-decoration: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48c-1.37-.38-2.84-.38-4.21 0C9.27.65 8.09 1 8.09 1A5.07 5.07 0 0 0 8 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 12 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-section text-center">
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      
+      <div class="d-flex justify-content-center gap-12 m-b-24">
+        <span class="pill-tag">Production Ready</span>
+        <span class="pill-tag">Zero Dependencies</span>
+      </div>
+
+      <h1 class="hero-title">
+        Build modern interfaces <br> with <br>
+        <span class="text-gradient">unmatched simplicity</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        PhonixUI delivers a complete design system with glassmorphic components, fluid typography, and OKLCH color science — all in a single 36KB CSS file.
+      </p>
+
+      <div class="d-flex justify-content-center gap-16 flex-wrap">
+        <a href="./phonixUI.min.css" download class="btn-pill-primary" style="text-decoration: none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Framework
+        </a>
+        <a href="docs.html" class="btn-pill-secondary" style="text-decoration: none;">
+          Read Documentation
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-code-box">
+        <div class="code-header">
+          <div class="mac-dot dot-r"></div>
+          <div class="mac-dot dot-y"></div>
+          <div class="mac-dot dot-g"></div>
+          <span class="code-title">Quick start</span>
+        </div>
+        <pre class="code-body"><code><span class="sy-tag">&lt;link</span> <span class="sy-attr">rel</span>=<span class="sy-val">"stylesheet"</span> <span class="sy-attr">href</span>=<span class="sy-val">"phonixUI.min.css"</span><span class="sy-tag">&gt;</span>
+
+<span class="sy-tag">&lt;button</span> <span class="sy-attr">class</span>=<span class="sy-val">"btn btn-primary ph-btn-glow"</span><span class="sy-tag">&gt;</span>
+  <span class="sy-text">Get Started</span>
+<span class="sy-tag">&lt;/button&gt;</span></code></pre>
+      </div>
+    </div>
+  </header>
+
+  <section class="container" style="padding: 0 20px;">
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-num">36KB</div>
+        <div class="stat-label">Minified CSS</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">0</div>
+        <div class="stat-label">JavaScript Dependencies</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">UI Components</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">OKLCH</div>
+        <div class="stat-label">Color Science</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-top: 120px;">
+    <div class="text-center">
+      <span class="pill-tag section-pill">Core Features</span>
+      <h2 class="section-heading">Designed for modern web development</h2>
+      <p class="hero-subtitle" style="margin-bottom: 0;">Everything you need to build professional<br>interfaces without the complexity.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feat-card">
+        <div class="feat-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="feat-title">Zero Configuration</h3>
+        <p class="feat-desc">Download one file, add one line of HTML. No build tools, no npm, no complexity. Start building immediately.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        </div>
+        <h3 class="feat-title">OKLCH Color Engine</h3>
+        <p class="feat-desc">Perceptually uniform colors with wide-gamut P3 support. Change a single CSS variable to shift the entire palette.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <h3 class="feat-title">Responsive Grid System</h3>
+        <p class="feat-desc">12-column CSS grid with sm, md, lg, and xl breakpoints. Familiar syntax with modern CSS Grid power.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="feat-title">Accessibility First</h3>
+        <p class="feat-desc">WCAG 2.1 compliant out of the box. Focus-visible rings, skip links, and reduced motion support included.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3 class="feat-title">Glassmorphism Effects</h3>
+        <p class="feat-desc">Native backdrop-filter glass effects, GPU-accelerated and performance optimized for modern browsers.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="feat-title">Developer Experience</h3>
+        <p class="feat-desc">Intuitive class names inspired by Bootstrap. If you know CSS frameworks, you can build with PhonixUI instantly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container comp-showcase-wrapper">
+    <span class="pill-tag section-pill">UI Components</span>
+    <h2 class="section-heading">Production-ready components</h2>
+    <p class="hero-subtitle">Every component includes hover states, focus rings, and smooth transitions.</p>
+
+    <div class="showcase-btns">
+      <button class="btn-show btn-s-prim">Primary Action</button>
+      <button class="btn-show btn-s-sec">Secondary</button>
+      <button class="btn-show btn-s-glass">Glass Effect</button>
+      <button class="btn-show btn-s-succ">Success</button>
+      <button class="btn-show btn-s-dang">Danger</button>
+    </div>
+
+    <div class="showcase-alerts">
+      <div class="alert-box info" style="width: 100%; max-width: 400px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        Informational message for your users
+      </div>
+      <div class="alert-box succ" style="width: 100%; max-width: 400px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Operation completed successfully
+      </div>
+    </div>
+
+    <div class="showcase-badges">
+      <span class="bdg bdg-p">Primary</span>
+      <span class="bdg bdg-s">Success</span>
+      <span class="bdg bdg-d">Danger</span>
+      <span class="bdg bdg-w">Warning</span>
+      <span class="bdg bdg-i">Information</span>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="cta-box">
+      <h2 class="section-heading">Start building today</h2>
+      <p class="hero-subtitle">Join developers using PhonixUI to create<br>beautiful, performant web applications.</p>
+      <div class="d-flex justify-content-center gap-16 flex-wrap">
+        <a href="./phonixUI.min.css" download class="btn-pill-primary" style="text-decoration: none;">Download Framework</a>
+        <a href="docs.html" class="btn-pill-secondary" style="text-decoration: none;">View Documentation</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-pro">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="f-logo-wrap text-white">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/></svg>
+            Phonix<span style="color: var(--ph-cyan)">UI</span>
+          </div>
+          <p class="f-desc">A modern CSS framework that prioritizes developer experience, performance, and design quality.</p>
+          <a href="https://github.com/ck0xdev/PhonixUI" target="_blank" rel="noopener" class="f-icon-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48c-1.37-.38-2.84-.38-4.21 0C9.27.65 8.09 1 8.09 1A5.07 5.07 0 0 0 8 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 12 18.13V22"/></svg>
+          </a>
+        </div>
+        <div>
+          <div class="f-title">Navigation</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docs.html">Documentation</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-title">Resources</div>
+          <ul class="f-links">
+            <li><a href="./phonixUI.min.css" download>Download CSS</a></li>
+            <li><a href="https://github.com/ck0xdev/PhonixUI" target="_blank" rel="noopener">GitHub Repository</a></li>
+            <li><a href="mit-license.html">MIT License</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-title">Quick Install</div>
+          <div class="f-install-box">
+            <code><span class="sy-tag">&lt;link</span> <span class="sy-attr">rel</span>=<span class="sy-val">"stylesheet"</span> <br><span class="sy-attr">href</span>=<span class="sy-val">"phonixUI.min.css"</span><span class="sy-tag">&gt;</span></code>
+          </div>
+        </div>
+      </div>
+
+      <div class="f-bottom">
+        <div>&copy; 2026 PhonixUI. MIT License. Built by <a href="https://github.com/ck0xdev" style="color:var(--ph-cyan); text-decoration:none;">ck0xdev</a>.</div>
+        <div style="display: flex; gap: 24px;">
+          <a href="privacy.html" style="color:var(--ph-text-muted); text-decoration:none;">Privacy</a>
+          <a href="terms.html" style="color:var(--ph-text-muted); text-decoration:none;">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

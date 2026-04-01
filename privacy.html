@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Privacy Policy | PhonixUI Framework</title>
+  <meta name="description" content="Privacy Policy for the PhonixUI Framework website.">
+  <link rel="icon" type="image/png" href="./Images/PhonixUI.png">
+  <link rel="stylesheet" href="./phonixUI.min.css">
+  <style>
+    /* ===== PREMIUM OVERRIDES & CUSTOM STYLES ===== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --ph-cyan: #00b0ff;
+      --ph-cyan-hover: #0095ff;
+      --ph-bg-dark: #030712;
+      --ph-surface-dark: #0a0f1c;
+      --ph-surface-light: #111827;
+      --ph-border-dim: #1e293b;
+      --ph-border-glow: rgba(0, 176, 255, 0.3);
+      --ph-text-white: #f8fafc;
+      --ph-text-muted: #94a3b8;
+    }
+
+    body {
+      background-color: var(--ph-bg-dark);
+      color: var(--ph-text-white);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* --- Navbar --- */
+    .navbar-pro {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 20px 0; background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent; z-index: 100; transition: all 0.3s ease;
+    }
+    .navbar-pro.scrolled { padding: 16px 0; border-bottom: 1px solid var(--ph-border-dim); background: rgba(3, 7, 18, 0.95); }
+    .nav-btn-cyan { background-color: var(--ph-cyan); color: #fff; border-radius: 999px; padding: 8px 16px; font-size: 0.875rem; font-weight: 600; transition: all 0.2s; text-decoration: none; }
+    .nav-btn-cyan:hover { background-color: var(--ph-cyan-hover); transform: translateY(-1px); }
+    .nav-center-links { display: none; }
+    @media (min-width: 768px) { .nav-center-links { display: flex; align-items: center; gap: 32px; } }
+    .nav-link-item { font-size: 0.875rem; font-weight: 500; color: var(--ph-text-muted); text-decoration: none; transition: color 0.2s ease; }
+    .nav-link-item:hover { color: #ffffff; }
+    .nav-link-item.active { color: var(--ph-cyan); }
+    .pill-tag { display: inline-flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--ph-border-dim); color: var(--ph-text-muted); font-size: 0.75rem; font-weight: 500; padding: 6px 14px; border-radius: 999px; }
+
+    /* --- Legal Page specific --- */
+    .legal-hero { padding: 160px 0 60px; text-align: center; position: relative; }
+    .hero-glow { position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(circle, rgba(0, 176, 255, 0.05), transparent 70%); z-index: -1; pointer-events: none; }
+    .legal-content-card { background: var(--ph-surface-dark); border: 1px solid var(--ph-border-dim); border-top: 1px solid rgba(0, 176, 255, 0.3); border-radius: 24px; padding: 48px; margin-bottom: 80px; text-align: left; }
+    .legal-text { font-size: 0.9375rem; line-height: 1.8; color: var(--ph-text-muted); }
+    .legal-text h2 { color: #fff; font-size: 1.25rem; font-weight: 600; margin: 32px 0 16px; border-bottom: 1px solid var(--ph-border-dim); padding-bottom: 8px; }
+    .legal-text p { margin-bottom: 16px; }
+
+    /* --- Footer --- */
+    .footer-pro { background: #02040a; border-top: 1px solid var(--ph-border-dim); padding: 80px 0 40px; font-size: 0.875rem; }
+    .footer-grid { display: grid; grid-template-columns: 3fr 2fr 2fr 3fr; gap: 40px; margin-bottom: 60px; }
+    .f-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 700; font-size: 1.125rem; }
+    .f-desc { color: var(--ph-text-muted); line-height: 1.6; margin-bottom: 24px; max-width: 280px; }
+    .f-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--ph-border-dim); border-radius: 50%; color: var(--ph-text-muted); transition: all 0.2s; }
+    .f-icon-btn:hover { border-color: var(--ph-text-muted); color: #fff; }
+    .f-title { font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 24px; }
+    .f-links { list-style: none; padding: 0; margin: 0; }
+    .f-links li { margin-bottom: 16px; }
+    .f-links a { color: var(--ph-text-muted); text-decoration: none; transition: color 0.2s; }
+    .f-links a:hover { color: #fff; }
+    .f-install-box { background: #0d1117; border: 1px solid var(--ph-border-dim); border-radius: 8px; padding: 16px; }
+    .f-install-box code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #79c0ff; display: block; line-height: 1.5; }
+    .f-bottom { border-top: 1px solid var(--ph-border-dim); padding-top: 32px; display: flex; justify-content: space-between; color: var(--ph-text-muted); font-size: 0.75rem; }
+
+    @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } .legal-content-card { padding: 32px 24px; } }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar-pro" id="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a href="index.html" class="d-flex align-items-center gap-8" style="color: #fff; text-decoration: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/></svg>
+        <span class="font-bold text-lg">Phonix<span style="color: var(--ph-cyan)">UI</span></span>
+        <span class="pill-tag" style="padding: 2px 8px; font-size: 0.65rem; border-color: rgba(0, 176, 255, 0.3); background: rgba(0, 176, 255, 0.1); color: var(--ph-cyan); margin-left: 4px;">v1.0</span>
+      </a>
+      
+      <div class="nav-center-links">
+        <a href="index.html" class="nav-link-item">Home</a>
+        <a href="docs.html" class="nav-link-item">Documentation</a>
+        <a href="about.html" class="nav-link-item">About</a>
+      </div>
+
+      <div>
+        <a href="https://github.com/ck0xdev/PhonixUI" target="_blank" rel="noopener" class="nav-btn-cyan d-flex align-items-center gap-8" style="text-decoration: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48c-1.37-.38-2.84-.38-4.21 0C9.27.65 8.09 1 8.09 1A5.07 5.07 0 0 0 8 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 12 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="legal-hero">
+    <div class="hero-glow"></div>
+    <div class="container" style="max-width: 800px;">
+      <h1 class="text-4xl font-bold m-b-16 text-white" style="letter-spacing: -0.02em;">Privacy Policy</h1>
+      <p class="text-lg text-muted">Last updated: April 2026</p>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 800px;">
+    <div class="legal-content-card">
+      <div class="legal-text">
+        <p>At PhonixUI, we respect your privacy and are committed to protecting it. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website or use our open-source CSS framework.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>PhonixUI is a static, open-source CSS framework. We do not require you to create an account, provide personal data, or log in to download and use the <code>phonixUI.min.css</code> file. If you browse our documentation website, standard server logs (such as IP addresses, browser types, and access times) may be collected automatically by our hosting provider for security and analytics purposes.</p>
+
+        <h2>2. Use of Information</h2>
+        <p>Any standard analytics information collected is used solely to maintain the quality of the website, analyze usage trends, and improve the documentation. We do not sell, rent, or share your personal information with third parties.</p>
+
+        <h2>3. Cookies and Tracking</h2>
+        <p>The PhonixUI documentation website may use essential cookies to ensure the site functions correctly (for example, remembering if you prefer a specific documentation layout). You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
+
+        <h2>4. Third-Party Links</h2>
+        <p>Our website contains links to external sites, primarily GitHub. We are not responsible for the privacy practices or content of these third-party websites. We encourage you to read the privacy policies of any website you visit.</p>
+
+        <h2>5. Changes to This Policy</h2>
+        <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.</p>
+
+        <h2>6. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact the maintainer via the PhonixUI GitHub repository.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer-pro">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="f-logo-wrap text-white">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/></svg>
+            Phonix<span style="color: var(--ph-cyan)">UI</span>
+          </div>
+          <p class="f-desc">A modern CSS framework that prioritizes developer experience, performance, and design quality.</p>
+        </div>
+        <div>
+          <div class="f-title">Navigation</div>
+          <ul class="f-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docs.html">Documentation</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-title">Resources</div>
+          <ul class="f-links">
+            <li><a href="./phonixUI.min.css" download>Download CSS</a></li>
+            <li><a href="https://github.com/ck0xdev/PhonixUI" target="_blank" rel="noopener">GitHub Repository</a></li>
+            <li><a href="mit-license.html">MIT License</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-title">Quick Install</div>
+          <div class="f-install-box">
+            <code><span class="sy-tag">&lt;link</span> <span class="sy-attr">rel</span>=<span class="sy-val">"stylesheet"</span> <br><span class="sy-attr">href</span>=<span class="sy-val">"phonixUI.min.css"</span><span class="sy-tag">&gt;</span></code>
+          </div>
+        </div>
+      </div>
+      <div class="f-bottom">
+        <div>&copy; 2026 PhonixUI. MIT License. Built by <a href="https://github.com/ck0xdev" style="color:var(--ph-cyan); text-decoration:none;">ck0xdev</a>.</div>
+        <div style="display: flex; gap: 24px;">
+          <a href="privacy.html" style="color:var(--ph-text-white); text-decoration:none;">Privacy</a>
+          <a href="terms.html" style="color:var(--ph-text-muted); text-decoration:none;">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+  </script>
+</body>
+</html>
