@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Documentation | PhonixUI Framework V1.0</title>
+  <title>PhonixUI | Documentation</title>
   <meta name="description" content="Complete basic-to-advanced documentation and component guide for PhonixUI V1.0.">
   <link rel="icon" type="image/png" href="./Images/PhonixUI.png">
   <link rel="stylesheet" href="./phonixUI.min.css">
   <style>
-    /* ===== PREMIUM OVERRIDES (Synced with Index) ===== */
+    /* ===== PREMIUM OVERRIDES (Fully Responsive Edition) ===== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
     :root {
@@ -22,6 +22,7 @@
       --ph-text-white: #f8fafc;
       --ph-text-muted: #94a3b8;
       --sidebar-width: 280px;
+      --navbar-height: 72px;
     }
 
     body {
@@ -29,78 +30,142 @@
       color: var(--ph-text-white);
       font-family: 'Inter', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     
     html { scroll-behavior: smooth; }
 
-    /* --- Navbar (100% Identical to index.html now) --- */
+    /* --- Navbar --- */
     .navbar-pro {
       position: fixed; top: 0; left: 0; right: 0;
-      padding: 20px 0; background: rgba(3, 7, 18, 0.8);
+      height: var(--navbar-height);
+      display: flex; align-items: center;
+      background: rgba(3, 7, 18, 0.8);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent; z-index: 100; transition: all 0.3s ease;
     }
     .navbar-pro.scrolled {
-      padding: 16px 0; border-bottom: 1px solid var(--ph-border-dim);
+      border-bottom: 1px solid var(--ph-border-dim);
       background: rgba(3, 7, 18, 0.95);
     }
-    .nav-btn-cyan { background-color: var(--ph-cyan); color: #fff; border-radius: 999px; padding: 8px 16px; font-size: 0.875rem; font-weight: 600; transition: all 0.2s; text-decoration: none; border: none; }
+    .nav-btn-cyan { background-color: var(--ph-cyan); color: #fff; border-radius: 999px; padding: 8px 16px; font-size: 0.875rem; font-weight: 600; transition: all 0.2s; text-decoration: none; border: none; white-space: nowrap; }
     .nav-btn-cyan:hover { background-color: var(--ph-cyan-hover); transform: translateY(-1px); }
     .nav-center-links { display: none; }
-    @media (min-width: 768px) { .nav-center-links { display: flex; align-items: center; gap: 32px; } }
+    
+    @media (min-width: 768px) { 
+      .nav-center-links { display: flex; align-items: center; gap: 32px; } 
+    }
+    
     .nav-link-item { font-size: 0.875rem; font-weight: 500; color: var(--ph-text-muted); text-decoration: none; transition: color 0.2s ease; }
     .nav-link-item:hover { color: #ffffff; }
     .nav-link-item.active { color: var(--ph-cyan); }
-    .pill-tag { display: inline-flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--ph-border-dim); color: var(--ph-text-muted); font-size: 0.75rem; font-weight: 500; padding: 6px 14px; border-radius: 999px; }
+    .pill-tag { display: inline-flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--ph-border-dim); color: var(--ph-text-muted); font-size: 0.75rem; font-weight: 500; padding: 6px 14px; border-radius: 999px; white-space: nowrap; }
 
     /* --- Layout --- */
-    .docs-layout { display: flex; min-height: 100vh; padding-top: 72px; }
-    .docs-sidebar { 
-      width: var(--sidebar-width); height: calc(100vh - 72px); 
-      position: fixed; left: 0; top: 72px; overflow-y: auto; 
-      border-right: 1px solid var(--ph-border-dim); 
-      background-color: #050811; padding: 32px 24px; z-index: 40; 
+    .docs-layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); flex-direction: column; }
+    
+    @media (min-width: 1025px) {
+      .docs-layout { flex-direction: row; }
     }
-    /* Custom Sidebar Scrollbar */
-    .docs-sidebar::-webkit-scrollbar { width: 6px; }
-    .docs-sidebar::-webkit-scrollbar-thumb { background: var(--ph-border-dim); border-radius: 4px; }
-    
-    .docs-content { flex: 1; margin-left: var(--sidebar-width); padding: 48px 64px; max-width: 1100px; }
-    
+
     /* --- Sidebar Navigation --- */
-    .nav-group { margin-bottom: 32px; }
-    .nav-group-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; margin-bottom: 12px; padding-left: 12px; }
-    .nav-link { display: block; padding: 8px 12px; font-size: 0.875rem; color: var(--ph-text-muted); border-radius: 6px; transition: all 0.2s; border-left: 2px solid transparent; text-decoration: none; }
-    .nav-link:hover { color: #fff; background: var(--ph-surface-dark); }
-    .nav-link.active { color: var(--ph-cyan); font-weight: 600; background: rgba(0,176,255,0.1); border-left-color: var(--ph-cyan); }
+    .docs-sidebar { 
+      background-color: #050811; 
+      z-index: 40; 
+      transition: all 0.3s ease;
+    }
+    
+    /* Desktop Sidebar */
+    @media (min-width: 1025px) {
+      .docs-sidebar {
+        width: var(--sidebar-width); 
+        height: calc(100vh - var(--navbar-height)); 
+        position: fixed; left: 0; top: var(--navbar-height); 
+        overflow-y: auto; 
+        border-right: 1px solid var(--ph-border-dim); 
+        padding: 32px 24px; 
+      }
+      .docs-sidebar::-webkit-scrollbar { width: 6px; }
+      .docs-sidebar::-webkit-scrollbar-thumb { background: var(--ph-border-dim); border-radius: 4px; }
+      .nav-group { margin-bottom: 32px; }
+      .nav-group-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; margin-bottom: 12px; padding-left: 12px; }
+      .nav-link { display: block; padding: 8px 12px; font-size: 0.875rem; color: var(--ph-text-muted); border-radius: 6px; transition: all 0.2s; border-left: 2px solid transparent; text-decoration: none; }
+      .nav-link:hover { color: #fff; background: var(--ph-surface-dark); }
+      .nav-link.active { color: var(--ph-cyan); font-weight: 600; background: rgba(0,176,255,0.1); border-left-color: var(--ph-cyan); }
+    }
+
+    /* Mobile/Tablet Horizontal Scrolling Nav */
+    @media (max-width: 1024px) {
+      .docs-sidebar {
+        position: sticky;
+        top: var(--navbar-height);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 0 20px;
+        border-bottom: 1px solid var(--ph-border-dim);
+        overflow-x: auto;
+        white-space: nowrap;
+        background: rgba(5, 8, 17, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .docs-sidebar::-webkit-scrollbar { height: 0px; display: none; } /* Hide scrollbar for clean look */
+      .nav-group { display: flex; align-items: center; gap: 8px; }
+      .nav-group-title { display: none; } /* Hide titles to save space */
+      .nav-link { 
+        display: inline-block; padding: 16px 12px; font-size: 0.875rem; color: var(--ph-text-muted); 
+        border-bottom: 2px solid transparent; text-decoration: none; transition: color 0.2s;
+      }
+      .nav-link.active { color: var(--ph-cyan); font-weight: 600; border-bottom-color: var(--ph-cyan); }
+    }
+
+    /* --- Content Area --- */
+    .docs-content { flex: 1; padding: 48px 20px; max-width: 1100px; width: 100%; margin: 0 auto; }
+    
+    @media (min-width: 1025px) {
+      .docs-content { margin-left: var(--sidebar-width); padding: 48px 64px; }
+    }
 
     /* --- Section Styling --- */
-    .docs-section { margin-bottom: 100px; scroll-margin-top: 100px; }
-    .section-title { font-size: 2.25rem; font-weight: 800; margin-bottom: 16px; color: #fff; letter-spacing: -0.02em; }
-    .section-desc { font-size: 1.125rem; color: var(--ph-text-muted); margin-bottom: 32px; line-height: 1.6; }
+    .docs-section { margin-bottom: 80px; scroll-margin-top: 140px; }
+    .section-title { font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 16px; color: #fff; letter-spacing: -0.02em; }
+    .section-desc { font-size: clamp(1rem, 2vw, 1.125rem); color: var(--ph-text-muted); margin-bottom: 32px; line-height: 1.6; }
     
     /* --- Example & Code Boxes --- */
     .example-container { 
       background: var(--ph-bg-dark);
       border: 1px solid var(--ph-border-dim); 
-      border-radius: 12px 12px 0 0; padding: 40px; 
+      border-radius: 12px 12px 0 0; padding: 40px 20px; 
       display: flex; flex-wrap: wrap; gap: 16px; 
       justify-content: center; align-items: center; 
       position: relative; overflow: hidden;
     }
+    @media (max-width: 640px) {
+      .example-container { padding: 24px 16px; }
+    }
+    
     .example-container::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background-image: radial-gradient(var(--ph-border-dim) 1px, transparent 1px);
       background-size: 20px 20px; opacity: 0.5; z-index: 0;
     }
-    .example-container > * { position: relative; z-index: 1; }
+    .example-container > * { position: relative; z-index: 1; max-width: 100%; }
     
-    .code-container { margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .code-container { margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; }
     .code-header { background: #0d1117; border: 1px solid var(--ph-border-dim); border-bottom: none; border-radius: 12px 12px 0 0; padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
-    .mac-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .mac-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
     .dot-r { background: #ff5f56; } .dot-y { background: #ffbd2e; } .dot-g { background: #27c93f; }
     .code-lang { font-size: 0.75rem; color: #8b949e; margin-left: 8px; font-family: 'Inter', sans-serif; font-weight: 500; }
-    .code-container pre { border: 1px solid var(--ph-border-dim); border-radius: 0 0 12px 12px; background: #0a0c10; padding: 24px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; overflow-x: auto; line-height: 1.7; }
+    
+    .code-container pre { 
+      border: 1px solid var(--ph-border-dim); border-radius: 0 0 12px 12px; 
+      background: #0a0c10; padding: 24px; margin: 0; 
+      font-family: 'JetBrains Mono', monospace; font-size: clamp(0.75rem, 2vw, 0.875rem); 
+      overflow-x: auto; line-height: 1.7; 
+      -webkit-overflow-scrolling: touch;
+    }
     
     /* Code Syntax Highlighting */
     .sy-tag { color: #7ee787; } .sy-attr { color: #79c0ff; } .sy-val { color: #a5d6ff; } .sy-text { color: #c9d1d9; } .sy-cmt { color: #8b949e; font-style: italic; } .sy-class { color: #d2a8ff; }
@@ -111,9 +176,13 @@
       border-top: 1px solid var(--ph-border-dim); 
       padding: 80px 0 40px; 
       font-size: 0.875rem; 
-      margin-top: 80px;
-      margin-left: var(--sidebar-width); /* Fixes overlap with fixed sidebar */
+      margin-top: auto; /* Pushes footer to bottom */
     }
+    
+    @media (min-width: 1025px) {
+      .footer-pro { margin-left: var(--sidebar-width); }
+    }
+
     .footer-grid { display: grid; grid-template-columns: 3fr 2fr 2fr 3fr; gap: 40px; margin-bottom: 60px; }
     .f-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 700; font-size: 1.125rem; }
     .f-desc { color: var(--ph-text-muted); line-height: 1.6; margin-bottom: 24px; max-width: 280px; }
@@ -124,28 +193,30 @@
     .f-links li { margin-bottom: 16px; }
     .f-links a { color: var(--ph-text-muted); text-decoration: none; transition: color 0.2s; }
     .f-links a:hover { color: #fff; }
-    .f-install-box { background: #0d1117; border: 1px solid var(--ph-border-dim); border-radius: 8px; padding: 16px; }
-    .f-install-box code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #79c0ff; display: block; line-height: 1.5; }
-    .f-bottom { border-top: 1px solid var(--ph-border-dim); padding-top: 32px; display: flex; justify-content: space-between; color: var(--ph-text-muted); font-size: 0.75rem; }
+    .f-install-box { background: #0d1117; border: 1px solid var(--ph-border-dim); border-radius: 8px; padding: 16px; width: 100%; overflow-x: auto;}
+    .f-install-box code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #79c0ff; display: block; line-height: 1.5; white-space: nowrap;}
+    .f-bottom { border-top: 1px solid var(--ph-border-dim); padding-top: 32px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; color: var(--ph-text-muted); font-size: 0.75rem; }
     
-    /* Responsive Adjustments */
-    @media (max-width: 1024px) { 
-      .docs-sidebar { display: none; } 
-      .docs-content { margin-left: 0; padding: 32px 20px; } 
-      .footer-pro { margin-left: 0; } /* Resets margin when sidebar hides */
+    /* Footer Responsive Adjustments */
+    @media (max-width: 992px) { 
+      .footer-grid { grid-template-columns: 1fr 1fr; } 
     }
-    @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { 
+      .footer-grid { grid-template-columns: 1fr; text-align: center; } 
+      .f-logo-wrap { justify-content: center; }
+      .f-desc { margin-left: auto; margin-right: auto; }
+      .f-bottom { justify-content: center; text-align: center; }
+    }
   </style>
 </head>
 <body>
 
   <nav class="navbar-pro" id="navbar">
-    <div class="container d-flex justify-content-between align-items-center">
+    <div class="container d-flex justify-content-between align-items-center w-100">
       <a href="index.html" class="d-flex align-items-center gap-8" style="color: #fff; text-decoration: none;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/></svg>
-        <span class="font-bold text-lg">Phonix<span style="color: var(--ph-cyan)">UI</span></span>
-        <span class="pill-tag" style="padding: 2px 8px; font-size: 0.65rem; border-color: rgba(0, 176, 255, 0.3); background: rgba(0, 176, 255, 0.1); color: var(--ph-cyan); margin-left: 4px;">v1.0</span>
+        <span class="font-bold text-lg d-none md-block" style="display:inline-block">Phonix<span style="color: var(--ph-cyan)">UI</span></span>
+        <span class="pill-tag d-none md-block" style="padding: 2px 8px; font-size: 0.65rem; border-color: rgba(0, 176, 255, 0.3); background: rgba(0, 176, 255, 0.1); color: var(--ph-cyan); margin-left: 4px;">v1.0</span>
       </a>
       
       <div class="nav-center-links">
@@ -167,33 +238,33 @@
     <aside class="docs-sidebar">
       <div class="nav-group">
         <p class="nav-group-title">Getting Started</p>
-        <a href="#introduction" class="nav-link active">Introduction</a>
+        <a href="#introduction" class="nav-link active">Intro</a>
         <a href="#installation" class="nav-link">Installation</a>
-        <a href="#theming" class="nav-link">Theming (OKLCH)</a>
+        <a href="#theming" class="nav-link">Theming</a>
       </div>
 
       <div class="nav-group">
         <p class="nav-group-title">Layout & Base</p>
-        <a href="#grid" class="nav-link">Grid System</a>
-        <a href="#flex-spacing" class="nav-link">Flexbox & Spacing</a>
+        <a href="#grid" class="nav-link">Grid</a>
+        <a href="#flex-spacing" class="nav-link">Flexbox</a>
       </div>
 
       <div class="nav-group">
         <p class="nav-group-title">Components</p>
         <a href="#buttons" class="nav-link">Buttons</a>
         <a href="#cards" class="nav-link">Cards</a>
-        <a href="#forms" class="nav-link">Forms & Inputs</a>
+        <a href="#forms" class="nav-link">Forms</a>
         <a href="#alerts" class="nav-link">Alerts</a>
-        <a href="#badges-avatars" class="nav-link">Badges & Avatars</a>
+        <a href="#badges-avatars" class="nav-link">Badges</a>
         <a href="#tables" class="nav-link">Tables</a>
-        <a href="#progress-tabs" class="nav-link">Progress & Tabs</a>
+        <a href="#progress-tabs" class="nav-link">Tabs</a>
       </div>
 
       <div class="nav-group">
         <p class="nav-group-title">Utilities & FX</p>
-        <a href="#glass-glow" class="nav-link">Glass & Glow FX</a>
+        <a href="#glass-glow" class="nav-link">Glass FX</a>
         <a href="#tooltips" class="nav-link">Tooltips</a>
-        <a href="#skeletons" class="nav-link">Skeleton Loaders</a>
+        <a href="#skeletons" class="nav-link">Skeletons</a>
       </div>
     </aside>
 
@@ -201,10 +272,10 @@
       
       <section id="introduction" class="docs-section">
         <span class="pill-tag m-b-16">Overview</span>
-        <h1 class="section-title" style="font-size: 3rem;">Introduction</h1>
+        <h1 class="section-title" style="font-size: clamp(2.5rem, 5vw, 3rem);">Introduction</h1>
         <p class="section-desc">PhonixUI is a high-fidelity, zero-dependency CSS framework designed for speed, professional aesthetics, and modern web standards. Built completely from scratch utilizing OKLCH color science.</p>
         
-        <div class="alert alert-info border border-primary bg-surface p-24 rounded-lg d-flex gap-16 m-b-32">
+        <div class="alert alert-info border border-primary bg-surface p-24 rounded-lg d-flex gap-16 m-b-32" style="align-items: flex-start;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ph-cyan)" stroke-width="2" class="flex-shrink-0 m-t-4"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
           <div>
             <p class="font-bold text-white m-b-4 text-lg">Framework Version V1.0</p>
@@ -241,9 +312,9 @@
 
       <section id="theming" class="docs-section">
         <h2 class="section-title">Theming (OKLCH Engine)</h2>
-        <p class="section-desc">PhonixUI uses the modern OKLCH color space. By changing a single CSS variable (<code>--ph-base-hue</code>), the entire framework palette (backgrounds, surfaces, borders, primary accents, and glows) recalculates automatically.</p>
+        <p class="section-desc">PhonixUI uses the modern OKLCH color space. By changing a single CSS variable (<code>--ph-base-hue</code>), the entire framework palette recalculates automatically.</p>
 
-        <div class="example-container gap-24">
+        <div class="example-container gap-16">
           <span class="badge border bg-surface p-x-16 p-y-8" style="border-color: #4f8ef7; color: #4f8ef7;">theme-blue</span>
           <span class="badge border bg-surface p-x-16 p-y-8" style="border-color: #22c55e; color: #22c55e;">theme-green</span>
           <span class="badge border bg-surface p-x-16 p-y-8" style="border-color: #ef4444; color: #ef4444;">theme-red</span>
@@ -274,8 +345,8 @@
             <div class="col-span-12 md-col-span-6 p-16 border rounded-sm bg-surface text-muted text-sm">md-col-span-6</div>
             <div class="col-span-12 md-col-span-6 p-16 border rounded-sm bg-surface text-muted text-sm">md-col-span-6</div>
 
-            <div class="col-span-4 p-16 border border-primary rounded-sm bg-surface text-primary text-sm">col-span-4</div>
-            <div class="col-span-8 p-16 border rounded-sm bg-surface text-muted text-sm">col-span-8</div>
+            <div class="col-span-12 md-col-span-4 p-16 border border-primary rounded-sm bg-surface text-primary text-sm">col-span-4</div>
+            <div class="col-span-12 md-col-span-8 p-16 border rounded-sm bg-surface text-muted text-sm">col-span-8</div>
           </div>
         </div>
         <div class="code-container">
@@ -288,9 +359,9 @@
   <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-12 md-col-span-6"</span><span class="sy-tag">&gt;</span><span class="sy-text">Left Column</span><span class="sy-tag">&lt;/div&gt;</span>
   <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-12 md-col-span-6"</span><span class="sy-tag">&gt;</span><span class="sy-text">Right Column</span><span class="sy-tag">&lt;/div&gt;</span>
 
-  <span class="sy-cmt">&lt;!-- 1/3 and 2/3 split on all screens --&gt;</span>
-  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-4"</span><span class="sy-tag">&gt;</span><span class="sy-text">Sidebar</span><span class="sy-tag">&lt;/div&gt;</span>
-  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-8"</span><span class="sy-tag">&gt;</span><span class="sy-text">Main Content</span><span class="sy-tag">&lt;/div&gt;</span>
+  <span class="sy-cmt">&lt;!-- 1/3 and 2/3 split on medium+ screens --&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-12 md-col-span-4"</span><span class="sy-tag">&gt;</span><span class="sy-text">Sidebar</span><span class="sy-tag">&lt;/div&gt;</span>
+  <span class="sy-tag">&lt;div</span> <span class="sy-attr">class</span>=<span class="sy-val">"col-span-12 md-col-span-8"</span><span class="sy-tag">&gt;</span><span class="sy-text">Main Content</span><span class="sy-tag">&lt;/div&gt;</span>
 <span class="sy-tag">&lt;/div&gt;</span></code></pre>
         </div>
       </section>
@@ -492,7 +563,7 @@
         <p class="section-desc">Status indicators and user profile placeholders.</p>
         
         <div class="example-container gap-32">
-          <div class="d-flex flex-column gap-16 align-items-center border-right p-r-32">
+          <div class="d-flex flex-column gap-16 align-items-center">
             <div class="text-sm text-muted font-bold uppercase tracking-wider">Badges</div>
             <div class="d-flex flex-wrap gap-8 justify-content-center">
               <span class="badge badge-primary">Primary</span>
@@ -505,7 +576,7 @@
           
           <div class="d-flex flex-column gap-16 align-items-center">
             <div class="text-sm text-muted font-bold uppercase tracking-wider">Avatars</div>
-            <div class="d-flex align-items-center gap-16">
+            <div class="d-flex align-items-center gap-16 flex-wrap justify-content-center">
               <div class="avatar avatar-lg bg-surface border text-primary">LG</div>
               <div class="avatar avatar-md bg-surface border text-primary">MD</div>
               
@@ -540,7 +611,7 @@
         
         <div class="example-container" style="display: block; padding: 0;">
           <div class="overflow-x-auto w-100">
-            <table class="table table-hover w-100" style="background: var(--ph-surface-dark); border-radius: 12px;">
+            <table class="table table-hover w-100" style="background: var(--ph-surface-dark); border-radius: 12px; min-width: 500px;">
               <thead>
                 <tr>
                   <th>Component</th>
@@ -554,19 +625,19 @@
                   <td class="font-medium text-white">Button</td>
                   <td><code>.btn</code></td>
                   <td><span class="badge badge-success">Stable</span></td>
-                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white">Edit</a></td>
+                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white" style="text-decoration:none">Edit</a></td>
                 </tr>
                 <tr>
                   <td class="font-medium text-white">Card Glass</td>
                   <td><code>.ph-glass</code></td>
                   <td><span class="badge badge-primary">New</span></td>
-                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white">Edit</a></td>
+                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white" style="text-decoration:none">Edit</a></td>
                 </tr>
                 <tr>
                   <td class="font-medium text-white">Dropdown</td>
                   <td><code>.ph-dropdown</code></td>
                   <td><span class="badge badge-warning">Beta</span></td>
-                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white">Edit</a></td>
+                  <td class="text-right"><a href="#" class="text-primary text-sm hover-text-white" style="text-decoration:none">Edit</a></td>
                 </tr>
               </tbody>
             </table>
@@ -618,7 +689,7 @@
           <div class="col-span-12 md-col-span-6">
             <h3 class="text-xl font-bold text-white m-b-16">CSS-Only Tabs</h3>
             <div class="card bg-surface-dark border p-0 overflow-hidden">
-              <div class="tabs p-x-16 p-t-8" style="background: rgba(0,0,0,0.2);">
+              <div class="tabs p-x-16 p-t-8" style="background: rgba(0,0,0,0.2); overflow-x: auto; white-space: nowrap;">
                 <button class="tab active" aria-selected="true">Account</button>
                 <button class="tab">Security</button>
                 <button class="tab">Billing</button>
@@ -700,7 +771,7 @@
         <div class="example-container align-items-start">
           <div class="card bg-surface-dark border w-100" style="max-width: 320px;">
             <div class="d-flex align-items-center gap-16 m-b-24">
-              <div class="skeleton rounded-full" style="width: 48px; height: 48px;"></div>
+              <div class="skeleton rounded-full" style="width: 48px; height: 48px; flex-shrink:0;"></div>
               <div class="flex-1">
                 <div class="skeleton m-b-8" style="height: 16px; width: 70%;"></div>
                 <div class="skeleton" style="height: 12px; width: 40%;"></div>
@@ -726,7 +797,7 @@
   </div>
 
   <footer class="footer-pro">
-    <div class="container" style="max-width: 100%;">
+    <div class="container" style="max-width: 100%; padding: 0 20px;">
       <div class="footer-grid">
         <div>
           <div class="f-logo-wrap text-white">
@@ -760,7 +831,7 @@
       </div>
       <div class="f-bottom">
         <div>&copy; 2026 PhonixUI. MIT License. Built by <a href="https://ck0xdev.vercel.app/" style="color:var(--ph-cyan); text-decoration:none;">ck0xdev</a>.</div>
-        <div style="display: flex; gap: 24px;">
+        <div style="display: flex; gap: 24px; justify-content: center;">
           <a href="privacy.html" style="color:var(--ph-text-muted); text-decoration:none;">Privacy</a>
           <a href="terms.html" style="color:var(--ph-text-muted); text-decoration:none;">Terms</a>
         </div>
@@ -769,17 +840,22 @@
   </footer>
 
   <script>
-    // Smooth scrolling & active states
+    // Smooth scrolling & active states (with offset for sticky headers)
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-          window.scrollTo({ top: targetElement.offsetTop - 100, behavior: 'smooth' });
+          window.scrollTo({ top: targetElement.offsetTop - 140, behavior: 'smooth' });
           document.querySelectorAll('.nav-link').forEach(nl => nl.classList.remove('active'));
           this.classList.add('active');
           history.pushState(null, null, targetId);
+          
+          // Scroll the horizontal active tab into view on mobile
+          if (window.innerWidth <= 1024) {
+             this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
         }
       });
     });
@@ -792,7 +868,7 @@
       let current = '';
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        if (pageYOffset >= sectionTop - 150) {
+        if (pageYOffset >= sectionTop - 180) {
           current = section.getAttribute('id');
         }
       });
@@ -801,6 +877,11 @@
         link.classList.remove('active');
         if (link.getAttribute('href') === '#' + current) {
           link.classList.add('active');
+          
+          // Scroll the horizontal tab into view dynamically on mobile
+          if (window.innerWidth <= 1024) {
+             link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
         }
       });
     });
@@ -808,8 +889,11 @@
     // Navbar scrolled state
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) navbar.classList.add('scrolled');
-      else navbar.classList.remove('scrolled');
+      if (window.scrollY > 10) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
     });
   </script>
 </body>
